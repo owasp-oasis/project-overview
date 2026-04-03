@@ -1,0 +1,42 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">OASIS Logo (Single Ink)</title>
+  <desc id="desc">Single-ink logo with transparent negative space</desc>
+
+  <defs>
+    <!-- White in mask = visible, black = transparent cutout -->
+    <mask id="shield-cutout-mask" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="256" height="256" fill="#FFFFFF"/>
+      <path
+        d="M128 20 L56 44 V120 C56 166 86 204 128 220 C170 204 200 166 200 120 V44 Z"
+        fill="none"
+        stroke="#000000"
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+      <circle cx="128" cy="120" r="40" fill="#000000"/>
+      <line x1="96" y1="80" x2="80" y2="60" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="80" cy="60" r="5" fill="#000000"/>
+      <line x1="128" y1="72" x2="128" y2="48" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="128" cy="48" r="5" fill="#000000"/>
+      <line x1="160" y1="80" x2="176" y2="60" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="176" cy="60" r="5" fill="#000000"/>
+    </mask>
+  </defs>
+
+  <!-- ========== SHIELD ICON AS "O" ========== -->
+  <g transform="translate(-19.2,-10) scale(1.15)">
+    <!-- Shield with transparent ring cutout -->
+    <path
+      d="M128 20 L56 44 V120 C56 166 86 204 128 220 C170 204 200 166 200 120 V44 Z"
+      fill="#000000"
+      stroke="#000000"
+      stroke-width="4"
+      stroke-linejoin="round"
+      mask="url(#shield-cutout-mask)"
+    />
+
+    <!-- Central O core -->
+    <circle cx="128" cy="120" r="25" fill="#000000"/>
+
+  </g>
+</svg>

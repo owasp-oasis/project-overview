@@ -1,4 +1,5 @@
 # OWASP OASIS Overview
+![OASIS Wordmark](./logo/svg/oasis-wordmark.svg)
 ## Purpose
 
 OWASP OASIS is a proposed OWASP project focused on improving the security of real open-source software through a repeatable workflow:

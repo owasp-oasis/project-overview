@@ -1,0 +1,55 @@
+<svg width="936" height="256" viewBox="0 0 936 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">OASIS Wordmark</title>
+  <desc id="desc">OASIS - Open-source AI Security Improvement Squad; Wordmark</desc>
+
+  <!-- ========== SHIELD ICON AS “O” ========== -->
+  <g transform="translate(0,-10) scale(1.15)">
+    <!-- Shield -->
+    <path
+      d="M128 20 L56 44 V120 C56 166 86 204 128 220 C170 204 200 166 200 120 V44 Z"
+      fill="#0B4F8A"
+      stroke="#0B4F8A"
+      stroke-width="4"
+      stroke-linejoin="round"
+    />
+
+    <!-- Inner shield -->
+    <path
+      d="M128 36 L72 56 V118 C72 156 96 188 128 200 C160 188 184 156 184 118 V56 Z"
+      fill="#0F6FCF"
+    />
+
+    <!-- Central O -->
+    <circle cx="128" cy="120" r="40" fill="#FFFFFF"/>
+    <circle cx="128" cy="120" r="25" fill="#0F6FCF"/>
+
+    <!-- Circuit lines -->
+    <line x1="96" y1="80" x2="80" y2="60" stroke="#4CD964" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="80" cy="60" r="5" fill="#4CD964"/>
+
+    <line x1="128" y1="72" x2="128" y2="48" stroke="#4CD964" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="128" cy="48" r="5" fill="#4CD964"/>
+
+    <line x1="160" y1="80" x2="176" y2="60" stroke="#4CD964" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="176" cy="60" r="5" fill="#4CD964"/>
+  </g>
+
+  <!-- ========== WORDMARK LETTERS “A S I S” ========== -->
+  <text x="235" y="170"
+        font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        font-size="120"
+        font-weight="700"
+        fill="#0F6FCF"
+        letter-spacing="4">
+    ASIS
+  </text>
+
+  <!-- ========== TAGLINE ========== -->
+  <text x="225" y="220"
+        font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        font-size="32"
+        fill="#0B4F8A"
+        letter-spacing="1">
+    Open-source AI Security Improvement Squad
+  </text>
+</svg>
