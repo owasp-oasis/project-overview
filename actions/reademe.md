@@ -31,16 +31,19 @@ flowchart TD
 
     subgraph SCANNERS [Scanner Matrix]
         direction TB
-        M1[Install Tool] --> M2[Run Tool<br/>Generate SARIF<br/>timestamped filename] --> M3[Commit SARIF to repo]
+        M1[Install Tool] --> M2[Run Tool<br/>Generate SARIF<br/>timestamped filename] --> M3[Open PR with SARIF file<br/>base = triggering branch]
     end
 
-    M --> N[Summarize Results<br/>Count findings per SARIF]
-    N --> O[Post Sticky PR Comment]
+    M --> N[Upload SARIF artifacts for downstream jobs]
+    N --> O[Summarize Results<br/>Count findings per SARIF]
+    O --> P[Post Sticky PR Comment]
 
-    L --> P[Determine SARIF File for AppSecAI]
-    M --> P
+    L --> Q[Build AppSecAI input from selected file]
+    N --> R[Build AppSecAI matrix from tool list]
+    Q --> S[Create tool-date-remediation branch]
+    R --> S
 
-    P --> Q[Run AppSecAI<br/>with selected SARIF file]
+    S --> T[Run AppSecAI<br/>from remediation branch]
 ```
 
 ## 🚀 What This Workflow Does
@@ -64,9 +67,11 @@ The workflow:
   ```
 - Validates user‑selected SARIF files  
 - Automatically selects the **newest SARIF file** when needed  
-- Commits all SARIF files back into the repository for auditability
+- Uploads generated SARIF files as workflow artifacts for downstream jobs
+- Opens a dedicated PR to store each generated SARIF file back into the repository
+- Targets the SARIF storage PR at the same branch that triggered the workflow run
 
-This ensures a clean, traceable history of all scan outputs.
+This keeps scan output auditable without pushing directly onto the branch that launched the action.
 
 ---
 
@@ -83,9 +88,10 @@ Each tool:
 - Installs itself
 - Runs a scan
 - Produces SARIF output
-- Commits results
+- Uploads its SARIF file as an artifact for later jobs
+- Opens a PR that stores that SARIF file against the triggering branch
 
-This makes the workflow **modular and extensible**.
+This keeps the workflow **modular, auditable, and safe for multi-tool runs**.
 
 ---
 
@@ -101,11 +107,21 @@ This gives reviewers immediate visibility into security findings.
 ---
 
 ## 🤖 5. AppSecAI Integration
-The workflow:
-- Selects the correct SARIF file (newest or user‑selected)
-- Passes it to AppSecAI for automated triage and remediation
+Before running AppSecAI, the workflow creates a remediation branch in this format:
 
-This creates a **complete end‑to‑end security pipeline**.
+```
+<tool>-YYYY-MM-DD-remediation
+```
+
+The tool name is taken from the matrix job when scanners run, or derived from the selected SARIF filename when an existing file is used.
+
+The workflow then:
+- Selects the correct SARIF file for each tool run, or uses the validated existing file
+- Checks out the source branch that triggered the workflow
+- Creates and pushes the remediation branch before invoking AppSecAI
+- Runs AppSecAI from that remediation branch so remediation PRs are tied to the correct branch name
+
+This creates a **complete end-to-end security pipeline** with deterministic remediation branch naming.
 
 ---
 
@@ -155,7 +171,7 @@ fi
 Inside the summary step:
 
 ```bash
-for f in scan-results/*.sarif; do
+for f in sarif-*/*.sarif; do
   tool=$(basename "$f" | cut -d'-' -f1)
   count=$(jq '.runs[].results | length' "$f")
   echo "- **$tool** → $count findings" >> $GITHUB_OUTPUT
@@ -168,7 +184,7 @@ This automatically includes your new tool.
 
 ### **Step 5 — Done**
 No other changes needed.
-The matrix, commit logic, PR comments, and AppSecAI integration all work automatically.
+The matrix, SARIF artifact handoff, storage PR logic, PR comments, and AppSecAI remediation branch creation all work automatically.
 
 ---
 
