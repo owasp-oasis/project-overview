@@ -18,6 +18,7 @@ Projects must be written primarily in:
 - JavaScript  
 - TypeScript  
 - Python  
+- Java  
 
 These languages align with OASIS focus areas and maximize ecosystem impact.
 
@@ -77,29 +78,28 @@ Each library receives a score from 1 to 10 in each category, multiplied by the w
 
 ## Ranked Results (Top 20 Candidates)
 
-| Rank | Project | Lang | Impact (30) | Maint. (20) | Contrib. (15) | AI Ready (15) | Tests (10) | Fit (10) | Total |
-|------|---------|------|-------------|-------------|----------------|----------------|-------------|-----------|--------|
-| 1 | FastAPI | Py | 28 | 19 | 14 | 14 | 9 | 10 | 94 |
-| 2 | Prisma | TS | 27 | 18 | 14 | 14 | 9 | 10 | 92 |
-| 3 | VS Code Core | TS | 30 | 17 | 13 | 15 | 9 | 10 | 94 |
-| 4 | MUI | TS | 26 | 18 | 14 | 13 | 9 | 10 | 90 |
-| 5 | Ant Design | TS | 26 | 17 | 13 | 13 | 9 | 10 | 88 |
-| 6 | N8n | TS | 25 | 18 | 14 | 13 | 8 | 10 | 88 |
-| 7 | Dify | TS/Py | 24 | 18 | 14 | 14 | 8 | 10 | 88 |
-| 8 | tRPC | TS | 25 | 17 | 13 | 13 | 8 | 10 | 86 |
-| 9 | Zod | TS | 24 | 17 | 14 | 13 | 8 | 10 | 86 |
-| 10 | Express.js | JS | 30 | 14 | 12 | 12 | 7 | 10 | 85 |
-| 11 | Next.js | TS | 29 | 16 | 12 | 12 | 8 | 10 | 87 |
-| 12 | Pydantic | Py | 24 | 17 | 13 | 13 | 9 | 10 | 86 |
-| 13 | Requests | Py | 30 | 14 | 12 | 12 | 7 | 10 | 85 |
-| 14 | Pandas | Py | 29 | 16 | 11 | 11 | 9 | 10 | 86 |
-| 15 | TypeORM | TS | 23 | 16 | 13 | 12 | 8 | 10 | 82 |
-| 16 | Sequelize | JS/TS | 24 | 15 | 12 | 12 | 7 | 10 | 80 |
-| 17 | Directus | TS | 22 | 17 | 13 | 12 | 8 | 10 | 82 |
-| 18 | Editor.js | TS | 22 | 16 | 13 | 12 | 8 | 10 | 81 |
-| 19 | Cal.com | TS | 23 | 16 | 12 | 12 | 7 | 10 | 80 |
-| 20 | Immich | TS | 22 | 17 | 12 | 12 | 7 | 10 | 80 |
-
+| Rank | Project | Language | Ecosystem impact | Maintenance activity | Contributor friendliness | AI readiness | Test coverage | Technical fit | Total weighted score |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Django](https://github.com/django/django) | Python | 5 | 5 | 5 | 4 | 5 | 5 | 4.9 |
+| 2 | [FastAPI](https://github.com/fastapi/fastapi) | Python | 4 | 5 | 5 | 4 | 5 | 5 | 4.7 |
+| 3 | [Spring Boot](https://github.com/spring-projects/spring-boot) | Java | 5 | 5 | 4 | 4 | 5 | 5 | 4.7 |
+| 4 | [React](https://github.com/facebook/react) | JS/TS | 5 | 5 | 4 | 4 | 4 | 4 | 4.5 |
+| 5 | [Express.js](https://github.com/expressjs/express) | JavaScript | 5 | 4 | 4 | 4 | 4 | 4 | 4.3 |
+| 6 | [NestJS](https://github.com/nestjs/nest) | TypeScript | 4 | 5 | 4 | 4 | 4 | 4 | 4.3 |
+| 7 | [Next.js](https://github.com/vercel/next.js) | JS/TS | 5 | 4 | 4 | 4 | 4 | 4 | 4.3 |
+| 8 | [Angular](https://github.com/angular/angular) | TypeScript | 5 | 4 | 4 | 4 | 4 | 4 | 4.3 |
+| 9 | [Vue.js](https://github.com/vuejs/vue) | JavaScript | 4 | 4 | 4 | 4 | 4 | 4 | 4.2 |
+| 10 | [Pandas](https://github.com/pandas-dev/pandas) | Python | 5 | 4 | 4 | 4 | 5 | 4 | 4.4 |
+| 11 | [NumPy](https://github.com/numpy/numpy) | Python | 5 | 4 | 4 | 4 | 5 | 4 | 4.4 |
+| 12 | [TensorFlow](https://github.com/tensorflow/tensorflow) | Python | 5 | 4 | 4 | 4 | 5 | 4 | 4.4 |
+| 13 | [scikit-learn](https://github.com/scikit-learn/scikit-learn) | Python | 5 | 4 | 4 | 4 | 5 | 4 | 4.4 |
+| 14 | [Flask](https://github.com/pallets/flask) | Python | 4 | 4 | 4 | 4 | 4 | 4 | 4.1 |
+| 15 | [Spring Framework](https://github.com/spring-projects/spring-framework) | Java | 5 | 4 | 4 | 4 | 5 | 4 | 4.4 |
+| 16 | [JUnit 5](https://github.com/junit-team/junit5) | Java | 4 | 4 | 4 | 4 | 5 | 4 | 4.2 |
+| 17 | [Jest](https://github.com/jestjs/jest) | JS/TS | 4 | 4 | 4 | 4 | 5 | 4 | 4.2 |
+| 18 | [Playwright](https://github.com/microsoft/playwright) | TypeScript | 4 | 4 | 4 | 4 | 5 | 4 | 4.2 |
+| 19 | [Apache Kafka Java Client](https://github.com/apache/kafka) | Java | 4 | 4 | 3 | 4 | 5 | 4 | 4.0 |
+| 20 | [Axios](https://github.com/axios/axios) | JavaScript | 4 | 4 | 4 | 4 | 4 | 3 | 3.9 |
 ---
 
 ## Notes and Observations
@@ -126,3 +126,92 @@ This list provides a high quality, high impact set of 20 candidate libraries tha
 - Equipped with meaningful test coverage  
 
 These projects represent excellent starting points for OASIS remediation work.
+
+---
+# OASIS Candidate Library Discovery Prompt
+Use this prompt to re-generate this document with updated search parameters.
+
+```markdown
+# OASIS Candidate Library Discovery Prompt
+
+I am looking for candidate open source libraries to evaluate for the OWASP OASIS project:
+https://github.com/owasp-oasis/project-overview
+
+Your task is to:
+1. Identify 20 strong candidate libraries that meet the criteria below.  
+2. Rank them from strongest to weakest candidate.  
+3. Provide justification for each selection.  
+4. Produce a detailed comparison table.  
+5. Use only the languages specified in the criteria section.
+
+## Candidate Selection Criteria
+
+A good candidate library must meet all of the following:
+
+### Language Requirements
+The project must be written primarily in one or more of the following languages:
+* JavaScript
+* TypeScript
+* Python
+* Java
+
+(When rerunning this prompt, replace this list with the new target languages.)
+
+### Contributor Friendliness
+The project should:
+* Have clear contribution guidelines  
+* Have active maintainers who respond to issues and pull requests  
+* Be welcoming to new contributors  
+* Not prohibit AI assisted contributions, as long as a human reviews the changes  
+
+### AI Assisted Contribution Compatibility
+The project must:
+* Allow or tolerate AI generated code when reviewed by humans  
+* Not have policies forbidding AI generated contributions  
+
+### Active Maintenance
+The project should show:
+* Recent commits  
+* Active issue triage  
+* Regular releases  
+* Maintainer responsiveness  
+
+### Real World Adoption
+The project should be:
+* Used in production systems or SaaS products  
+* Widely adopted in the developer ecosystem  
+* Downloaded frequently on package registries  
+
+### Test Coverage
+The project must include:
+* Unit tests or regression tests  
+* Continuous integration pipelines  
+* Evidence that tests run on pull requests  
+
+## Required Output
+
+### 1. Ranked List
+Provide a ranked list of the top 20 candidate libraries, from strongest to weakest.
+
+### 2. Justification
+For each library, provide a short explanation describing why it is a strong candidate.
+
+### 3. Detailed Scoring Table
+Create a table that includes the following columns:
+* Rank  
+* Project name with github link  
+* Language  
+* Ecosystem impact  
+* Maintenance activity  
+* Contributor friendliness  
+* AI readiness  
+* Test coverage  
+* Technical fit  
+* Total weighted score  
+
+### 4. Scoring Methodology
+Explain the scoring system, including:
+* Criteria  
+* Weights  
+* How the final score is calculated  
+```
