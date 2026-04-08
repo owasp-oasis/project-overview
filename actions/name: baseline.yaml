@@ -1,0 +1,199 @@
+name: OWASP_OASIS_TOOL
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_tools:
+        description: "Run scanners again?"
+        type: choice
+        required: true
+        default: "auto"
+        options:
+          - auto
+          - yes
+          - no
+      tool_pack:
+        description: "Comma-separated list of tools to run (semgrep, bandit)"
+        required: true
+        default: "semgrep,bandit"
+      selected_file:
+        description: "If not running tools, choose an existing SARIF file"
+        required: false
+        type: string
+
+jobs:
+  triageAndRemediation:
+    runs-on: ubuntu-latest
+    outputs:
+      run_tools: ${{ steps.validate.outputs.run_tools }}
+      validated_file: ${{ steps.validate.outputs.validated_file }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find existing SARIF files
+        id: find_files
+        run: |
+          mkdir -p scan-results
+          files=$(ls -1t scan-results/*.sarif 2>/dev/null || true)
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Validate selected file & determine run mode
+        id: validate
+        run: |
+          files="${{ steps.find_files.outputs.files }}"
+          selected="${{ github.event.inputs.selected_file }}"
+          run="${{ github.event.inputs.run_tools }}"
+
+          # If user selected a file manually, validate it
+          if [[ -n "$selected" ]]; then
+            if echo "$files" | grep -Fx "$selected" >/dev/null; then
+              echo "validated_file=$selected" >> $GITHUB_OUTPUT
+              echo "run_tools=false" >> $GITHUB_OUTPUT
+              exit 0
+            else
+              echo "ERROR: Selected file does not exist:"
+              echo "$selected"
+              exit 1
+            fi
+          fi
+
+          # Determine whether to run tools
+          if [[ "$run" == "yes" ]]; then
+            echo "run_tools=true" >> $GITHUB_OUTPUT
+          elif [[ "$run" == "no" ]]; then
+            echo "run_tools=false" >> $GITHUB_OUTPUT
+          else
+            # auto mode: run only if no files exist
+            if [[ -z "$files" ]]; then
+              echo "run_tools=true" >> $GITHUB_OUTPUT
+            else
+              echo "run_tools=false" >> $GITHUB_OUTPUT
+              newest=$(echo "$files" | head -n 1)
+              echo "validated_file=$newest" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+  buildMatrix:
+    needs: triageAndRemediation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+
+    steps:
+      - id: set
+        run: |
+          tools="${{ github.event.inputs.tool_pack }}"
+          json=$(printf '%s\n' "$tools" | jq -R 'split(",")')
+          echo "matrix=$json" >> $GITHUB_OUTPUT
+
+  runScanners:
+    needs: [triageAndRemediation, buildMatrix]
+    if: needs.triageAndRemediation.outputs.run_tools == 'true'
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        tool: ${{ fromJson(needs.buildMatrix.outputs.matrix) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          if [[ "${{ matrix.tool }}" == "semgrep" ]]; then
+            pip install semgrep
+          elif [[ "${{ matrix.tool }}" == "bandit" ]]; then
+            pip install bandit
+          fi
+
+      - name: Run scanner
+        id: scan
+        run: |
+          mkdir -p scan-results
+          timestamp=$(date +"%Y%m%d-%H%M%S")
+          outfile="scan-results/${{ matrix.tool }}-${timestamp}.sarif"
+
+          if [[ "${{ matrix.tool }}" == "semgrep" ]]; then
+            semgrep scan --config auto --sarif --output "$outfile" .
+          elif [[ "${{ matrix.tool }}" == "bandit" ]]; then
+            bandit -r . -f sarif -o "$outfile"
+          fi
+
+          echo "outfile=$outfile" >> $GITHUB_OUTPUT
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add scan-results/*.sarif
+          git commit -m "Add ${{ matrix.tool }} results"
+          git push
+
+  summarize:
+    needs: runScanners
+    runs-on: ubuntu-latest
+    if: needs.triageAndRemediation.outputs.run_tools == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Summarize SARIF results
+        id: summary
+        run: |
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          echo "### 🔐 Security Scan Summary" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "These SARIF files were generated automatically by the GitHub Action security workflow." >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+
+          for f in scan-results/*.sarif; do
+            tool=$(basename "$f" | cut -d'-' -f1)
+            count=$(jq '.runs[].results | length' "$f")
+            echo "- **$tool** → $count findings" >> $GITHUB_OUTPUT
+          done
+
+          echo "" >> $GITHUB_OUTPUT
+          echo "Files are stored in \`scan-results/\` and committed to this PR." >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: ${{ steps.summary.outputs.summary }}
+
+  appsecAI:
+    needs: [triageAndRemediation, runScanners]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Determine file for AppSecAI
+        id: pick
+        run: |
+          if [[ "${{ needs.triageAndRemediation.outputs.run_tools }}" == "true" ]]; then
+            newest=$(ls -1t scan-results/*.sarif | head -n 1)
+            echo "file=$newest" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "file=${{ needs.triageAndRemediation.outputs.validated_file }}" >> $GITHUB_OUTPUT
+
+      - name: AppSecAI
+        uses: AppSecureAI/automation-action@v1
+        with:
+          file: ${{ steps.pick.outputs.file }}
