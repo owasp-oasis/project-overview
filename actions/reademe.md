@@ -7,43 +7,38 @@ This GitHub Actions workflow automates a **full security scanning pipeline** wit
 ## Workflow Chart
 ```mermaid
 flowchart TD
+A[workflow_dispatch] --> B[checkout repository]
+B --> C[find SARIF files]
+C --> D{selected file provided}
+D -->|yes| E[validate selected file]
+E -->|valid| F[run_tools false]
+E -->|invalid| Z[fail workflow]
 
-    A[workflow_dispatch<br/>User selects:<br/>• run_tools (auto/yes/no)<br/>• tool_pack (semgrep, bandit)<br/>• selected_file] --> B[Checkout Repository]
+D -->|no| G{run_tools input}
+G -->|yes| H[run tools]
+G -->|no| I[skip scanners use newest file]
+G -->|auto| J{SARIF exists}
+J -->|no| H
+J -->|yes| I
 
-    B --> C[Find Existing SARIF Files]
+H --> K[build tool matrix]
+K --> M[run scanners]
 
-    C --> D{Did user select a file?}
-    D -->|Yes| E[Validate Selected File]
-    E -->|Valid| F[run_tools = false<br/>validated_file = selected]
-    E -->|Invalid| Z[Fail Workflow]
+subgraph SCANNERS
+direction TB
+M1[install tool] --> M2[run scan create SARIF]
+M2 --> M3[open SARIF storage PR to source branch]
+end
 
-    D -->|No| G{run_tools input}
-    G -->|yes| H[run_tools = true]
-    G -->|no| I[run_tools = false<br/>validated_file = newest]
-    G -->|auto| J{Any SARIF files exist?}
-    J -->|No| H
-    J -->|Yes| I
+M --> N[upload SARIF artifacts]
+N --> O[summarize findings]
+O --> P[post sticky PR comment]
 
-    H --> K[Build Matrix from tool_pack<br/>e.g., ['semgrep','bandit']]
-    I --> L[Skip Scanners]
-
-    K --> M[Matrix Job: runScanners]
-
-    subgraph SCANNERS [Scanner Matrix]
-        direction TB
-        M1[Install Tool] --> M2[Run Tool<br/>Generate SARIF<br/>timestamped filename] --> M3[Open PR with SARIF file<br/>base = triggering branch]
-    end
-
-    M --> N[Upload SARIF artifacts for downstream jobs]
-    N --> O[Summarize Results<br/>Count findings per SARIF]
-    O --> P[Post Sticky PR Comment]
-
-    L --> Q[Build AppSecAI input from selected file]
-    N --> R[Build AppSecAI matrix from tool list]
-    Q --> S[Create tool-date-remediation branch]
-    R --> S
-
-    S --> T[Run AppSecAI<br/>from remediation branch]
+I --> Q[prepare AppSecAI input]
+N --> R[prepare AppSecAI matrix]
+Q --> S[create tool-date-remediation branch]
+R --> S
+S --> T[run AppSecAI]
 ```
 
 ## 🚀 What This Workflow Does
