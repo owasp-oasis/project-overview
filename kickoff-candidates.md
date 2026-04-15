@@ -100,6 +100,13 @@ Each library receives a score from 1 to 10 in each category, multiplied by the w
 | 18 | [Playwright](https://github.com/microsoft/playwright) | TypeScript | 4 | 4 | 4 | 4 | 5 | 4 | 4.2 |
 | 19 | [Apache Kafka Java Client](https://github.com/apache/kafka) | Java | 4 | 4 | 3 | 4 | 5 | 4 | 4.0 |
 | 20 | [Axios](https://github.com/axios/axios) | JavaScript | 4 | 4 | 4 | 4 | 4 | 3 | 3.9 |
+| 21 | [Vite](https://github.com/vitejs/vite) | JS/TS | 5 | 5 | 4 | 4 | 4 | 5 | 4.5 |
+| 22 | [Vitest](https://github.com/vitest-dev/vitest) | JS/TS | 4 | 5 | 4 | 4 | 5 | 5 | 4.4 |
+| 23 | [Material UI](https://github.com/mui/material-ui) | TypeScript | 5 | 4 | 4 | 4 | 4 | 4 | 4.3 |
+| 24 | [tRPC](https://github.com/trpc/trpc) | TypeScript | 4 | 4 | 4 | 5 | 4 | 5 | 4.3 |
+| 25 | [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) | TypeScript | 3 | 5 | 4 | 5 | 4 | 5 | 4.2 |
+| 26 | [Deno](https://github.com/denoland/deno) | TypeScript | 4 | 5 | 4 | 4 | 4 | 4 | 4.2 |
+| 27 | [Bun](https://github.com/oven-sh/bun) | TypeScript | 4 | 5 | 3 | 4 | 3 | 4 | 4.0 |
 ---
 
 ## Notes and Observations
