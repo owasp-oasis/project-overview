@@ -11,6 +11,8 @@ OWASP OASIS is a proposed OWASP project focused on improving the security of rea
 
 The goal is not to build new scanning or code-generation tools. The goal is to create a practical, community-driven operating model that turns automated findings into human-validated upstream security improvements.
 
+*Sign up to the [mailing list](https://www.appsecai.io/oasis) to stay informed.*
+
 ## Guiding Principles
 
 1. Focus on impact.
