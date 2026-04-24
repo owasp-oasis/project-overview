@@ -45,4 +45,19 @@
     ASIS
   </text>
 
+  <!-- ========== TAGLINE ========== -->
+  <text x="225" y="208"
+        font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        font-size="32"
+        fill="#0B4F8A"
+        letter-spacing="1">
+    Open Automated Security
+  </text>
+  <text x="205" y="243"
+        font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        font-size="32"
+        fill="#0B4F8A"
+        letter-spacing="1">
+    Initiative for Software
+  </text>
 </svg>
