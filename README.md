@@ -11,12 +11,12 @@ OWASP OASIS is a proposed OWASP project focused on improving the security of rea
 
 The goal is not to build new scanning or code-generation tools. The goal is to create a practical, community-driven operating model that turns automated findings into human-validated upstream security improvements.
 
-*Sign up to the [mailing list](https://www.appsecai.io/oasis) to stay informed.*
+*Sign up to [show you are interested]([https://www.appsecai.io/oasis](https://www.owasp-oasis.org/)).*
 
 ## Guiding Principles
 
 1. Focus on impact.
-2. Acceptance build credibility.
+2. Acceptance builds credibility.
 3. It takes a village.
 
 These guiding principles should be visible in the documentation, operation, and output of this project and the people who work on it together. They may be referenced simply as `Impact`, `Credibility`, and `Village` to apply contextual tags.
