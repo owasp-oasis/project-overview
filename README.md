@@ -1,8 +1,12 @@
-# OWASP OASIS Overview
+# OASIS — Open Automated Security Initiative for Software
+
 ![OASIS Wordmark](./logo/svg/oasis-wordmark.svg)
+
+OASIS is a community-driven project that mobilizes the AppSec community to deliver human-validated vulnerability fixes for the open source software that runs the world. OASIS has submitted a project proposal to OWASP and is currently seeking formal approval.
+
 ## Purpose
 
-OWASP OASIS is a proposed OWASP project focused on improving the security of real open-source software through a repeatable workflow:
+OASIS is focused on improving the security of real open-source software through a repeatable workflow:
 
 1. Existing tools identify likely vulnerabilities and generate candidate fixes.
 2. The OWASP community reviews and validates those candidate fixes.
