@@ -171,6 +171,9 @@ Each validator decision should be recorded as one of:
 - accept
 - reject
 - modify
+- duplicate
+
+The `duplicate` decision indicates that the candidate fix addresses the same vulnerability as an existing PR or upstream submission. Duplicate votes are used to identify related work and prevent redundant effort. When consensus is reached (more duplicate votes than accept/modify/reject votes), the PR is marked as a duplicate of its most-cited parent, and—if the parent is already merged upstream—the duplicate PR is automatically closed on GitHub.
 
 These timing and outcome records support both operational metrics and reviewer credibility scoring over time.
 

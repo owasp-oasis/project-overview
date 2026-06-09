@@ -43,3 +43,15 @@ Rejection summary:
 | Blocking issues | short list |
 | To reconsider | what must change |
 ```
+
+## Duplicate Report
+
+```text
+Duplicate report:
+
+| | |
+| :-- | :-- |
+| Decision | Duplicate |
+| Parent PR | #123 (or https://github.com/org/repo/pull/123) |
+| Notes | brief explanation of why this is a duplicate |
+```

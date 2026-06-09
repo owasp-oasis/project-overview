@@ -1,8 +1,13 @@
 # OASIS Tooling Standard
 
-**Version:** 1.0  
-**Date:** 2026-06-08  
+**Version:** 1.3  
+**Date:** 2026-06-09  
 **Status:** Draft
+
+## Version History
+
+- **1.3** (2026-06-09): Added `parent_pr` field to validation_result for duplicate detection, `decision` enum, and duplicate validation guidance.
+- **1.0** (2026-06-08): Initial release.
 
 ## Purpose
 
@@ -72,6 +77,8 @@ This standard defines the structured metadata that security tools must provide t
 
 **detection_method:** `static-analysis` | `dynamic-analysis` | `llm-analysis` | `dependency-scan` | `secrets-scan` | `code-review` | `fuzzing` | `manual` | `hybrid`
 
+**decision:** `accept` | `modify` | `reject` | `duplicate` — Structured validation decision required by OASIS for consensus tracking. The `duplicate` decision indicates that this PR addresses the same vulnerability as a related PR (see `parent_pr` in validation_result).
+
 ## Object Schemas
 
 ### Target
@@ -111,7 +118,9 @@ This standard defines the structured metadata that security tools must provide t
 ```json
 {
   "valid": true,
+  "decision": "accept",
   "evidence": "Test suite passes with fix applied",
+  "parent_pr": null,
   "test_results": {
     "passed": 42,
     "failed": 0,
@@ -120,6 +129,14 @@ This standard defines the structured metadata that security tools must provide t
   "method": "automated_testing"
 }
 ```
+
+**Fields:**
+- `valid` (boolean): Accept/Modify = true, Reject = false, Duplicate = null (optional)
+- `decision` (string): `accept`, `modify`, `reject`, or `duplicate` — explicit decision value used by OASIS for structured tracking
+- `evidence` (string): Human-readable summary of validation findings or reason for decision
+- `parent_pr` (number | null): For duplicate detection only — GitHub PR number of the parent/related PR. Null for non-duplicate validations.
+- `test_results` (object, optional): Test execution summary
+- `method` (string, optional): Validation method used (e.g., `automated_testing`, `manual_review`, `static_analysis`)
 
 ## JSON Schema
 
@@ -370,6 +387,46 @@ Rejection summary:
 | `Low` | `0.5` |
 | `Medium` | `0.75` |
 | `High` | `1.0` |
+
+### Duplicate Validation (Human Validator)
+
+When a validator determines that a PR addresses the same vulnerability as a related PR (parent), they submit a `duplicate` decision:
+
+**Markdown Table Input:**
+
+```markdown
+Duplicate report:
+
+| | |
+| :-- | :-- |
+| Decision | Duplicate |
+| Parent PR | #1234 |
+| Notes | This PR addresses the same XSS vulnerability as #1234, which was already merged upstream. |
+```
+
+**Translated to Structured Fields:**
+
+| Field | Value | Notes |
+|-------|-------|-------|
+| `version` | `"1.3"` | Schema version supporting duplicates |
+| `tool_name` | `"Human Validator"` | — |
+| `role` | `"validate"` | — |
+| `timestamp` | Comment timestamp | From GitHub |
+| `target` | PR context | From PR metadata |
+| `github_bot_login` | Validator's GitHub login | e.g., `chrisholt` |
+| `tool_version_at_run` | `"human"` | Identifies human validator |
+| `confidence` | `1.0` | Duplicate detection is high confidence |
+| `validation_result.valid` | `null` | Not a pass/fail validation |
+| `validation_result.decision` | `"duplicate"` | Always duplicate |
+| `validation_result.parent_pr` | `1234` | The PR number of the parent/related work |
+| `validation_result.evidence` | Notes field | From table |
+| `validation_result.method` | `"human_review"` | Identifies human validator |
+
+**When duplicate consensus is reached** (more duplicate votes than accept/modify/reject), OASIS:
+1. Sets `pull_requests.duplicate_of` to point to the most-cited parent PR (canonicalized through chain resolution)
+2. Badges the duplicate PR on the leaderboard with duplicate status
+3. Continues to award full reputation to validators who voted duplicate
+4. If the parent PR is merged upstream, automatically closes the duplicate PR on GitHub
 
 ## GitHub Integration
 
