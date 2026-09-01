@@ -355,6 +355,7 @@ Rejection summary:
 | | |
 | :-- | :-- |
 | Decision | Reject |
+| Confidence | High |
 | Reason | Fix introduces breaking change to public API. |
 | Blocking issues | Changes function signature without migration path. |
 | To reconsider | Add backwards-compatible overload or deprecation notice. |
