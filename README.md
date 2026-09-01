@@ -15,7 +15,7 @@ OASIS is focused on improving the security of real open-source software through 
 
 The goal is not to build new scanning or code-generation tools. The goal is to create a practical, community-driven operating model that turns automated findings into human-validated upstream security improvements.
 
-*Sign up to [show you are interested]([https://www.appsecai.io/oasis](https://www.owasp-oasis.org/)).*
+*Sign up to [show you are interested](https://www.owasp-oasis.org/).*
 
 ## Guiding Principles
 
