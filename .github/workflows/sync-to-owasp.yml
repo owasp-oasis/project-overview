@@ -28,6 +28,7 @@ jobs:
         run: |
           rsync -av --delete \
             --exclude='.git' \
+            --exclude='.github' \
             --exclude='.DS_Store' \
             --exclude='LICENSE' \
             project-overview/ oasis/
