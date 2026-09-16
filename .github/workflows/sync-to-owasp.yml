@@ -1,0 +1,46 @@
+name: Sync to OWASP/oasis
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout project-overview
+        uses: actions/checkout@v4
+        with:
+          path: project-overview
+
+      - name: Checkout OWASP/oasis
+        uses: actions/checkout@v4
+        with:
+          repository: OWASP/oasis
+          token: ${{ secrets.OWASP_SYNC_PAT }}
+          path: oasis
+
+      - name: Sync files (preserve OWASP LICENSE)
+        run: |
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='.DS_Store' \
+            --exclude='LICENSE' \
+            project-overview/ oasis/
+
+      - name: Commit and push
+        working-directory: oasis
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to sync."
+          else
+            git commit -m "Sync from owasp-oasis/project-overview@${{ github.sha }}"
+            git push
+          fi
