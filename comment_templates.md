@@ -39,6 +39,7 @@ Rejection summary:
 | | |
 | :-- | :-- |
 | Decision | Reject |
+| Confidence | Low / Medium / High |
 | Reason | 1-2 sentances |
 | Blocking issues | short list |
 | To reconsider | what must change |
