@@ -228,7 +228,7 @@ Project owners decide whether a candidate is:
 
 A candidate should be adopted only when:
 
-- the vulnerability is substantiated, or the candidate has a worthwhile scoped hardening rationale
+- the issue appears real
 - the fix is technically sound
 - the patch is credible to maintainers
 - the target repository is still active and submission-worthy

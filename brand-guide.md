@@ -95,7 +95,7 @@ OASIS uses precise, consistent terminology throughout all documentation and comm
 ### Terms to avoid
 
 - **AI slop PRs** — acceptable in informal community discussion and blog posts where the problem is being described; not appropriate in formal project documentation or press materials
-- **bug fix** — OASIS works on vulnerability fixes and scoped security hardening, not general bugs, maintenance, refactoring, or feature work
+- **bug fix** — OASIS works on vulnerability fixes, not general bugs
 - **scan** — too narrow; OASIS uses multiple tools including SAST, dependency analysis, and LLM-assisted generation
 - **approve** — maintainers *accept* upstream PRs; OASIS project owners *adopt* candidate fixes
 
