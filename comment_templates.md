@@ -25,11 +25,13 @@ Validation summary:
 
 | | |
 | :-- | :-- |
-| Decision | Accept / Modify |
+| Decision | Accept / Modify / Hardening |
 | Confidence | Low / Medium / High |
 | Summary | 1-2 sentances |
 | Next step | merge / revise / re-review |
 ```
+
+For a Hardening decision, the summary should describe the scoped security improvement without claiming that the existing implementation is a confirmed vulnerability. Hardening is a human validation decision; automation cannot assign it.
 
 ## Rejection Review Summary
 

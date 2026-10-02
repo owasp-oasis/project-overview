@@ -82,6 +82,7 @@ OASIS uses precise, consistent terminology throughout all documentation and comm
 | Use this | Not this | Why |
 |---|---|---|
 | **candidate fix** | AI fix, patch, PR, submission | Neutral. Does not presuppose quality or correctness. |
+| **Hardening** | finding classification | A human validation decision when available evidence does not demonstrate a vulnerability, but the proposed change is a worthwhile scoped security improvement. It is not a confirmed-vulnerability claim or a false-positive classification. Automation cannot assign it. |
 | **validator** | reviewer, approver, auditor | The specific OASIS role. "Reviewer" is too generic. |
 | **fix automation** | AI, AI tools, LLM | Broader and more accurate. The tools include SAST, dependency analysis, and LLM-assisted generation. |
 | **project owner** | admin, lead, maintainer | The OASIS governance role. "Maintainer" always refers to upstream OSS maintainers. |
@@ -94,7 +95,7 @@ OASIS uses precise, consistent terminology throughout all documentation and comm
 ### Terms to avoid
 
 - **AI slop PRs** — acceptable in informal community discussion and blog posts where the problem is being described; not appropriate in formal project documentation or press materials
-- **bug fix** — OASIS works on vulnerability fixes, not general bugs
+- **bug fix** — OASIS works on vulnerability fixes and scoped security hardening, not general bugs, maintenance, refactoring, or feature work
 - **scan** — too narrow; OASIS uses multiple tools including SAST, dependency analysis, and LLM-assisted generation
 - **approve** — maintainers *accept* upstream PRs; OASIS project owners *adopt* candidate fixes
 

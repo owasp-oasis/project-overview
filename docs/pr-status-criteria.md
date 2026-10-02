@@ -156,9 +156,16 @@ All status determinations are computed entirely from the `pull_requests` table:
 - `state` — from GitHub API (open/closed)
 - `merged_upstream` — computed via upstream SHA lookup
 - `consensus_accept`, `consensus_modify`, `consensus_reject` — aggregated from `pr_comments` table via `parseDecision()` function
+- `consensus_hardening` — recorded separately; it is not currently used in status classification or the Accept rate
 - `participants` — count of distinct users with ≥1 OASIS-template vote
 
 **Note:** Status is a frontend-computed value, not stored in the database. It is calculated on every page load based on current DB values.
+
+## Hardening Decision Interaction
+
+Hardening is a separate human validation decision and count. It does not count as Accept, Modify, Reject, or Duplicate. Under the current status rules, it is not included in the Accept-rate numerator or denominator and does not independently satisfy Trusted or Withdrawn. Lifecycle status `Rejected` means that the closed PR has no recorded Accept vote and no confirmed upstream merge; it is not equivalent to an individual validator selecting Reject.
+
+A closed, non-merged PR with Hardening votes but no Accept vote therefore currently receives lifecycle status Rejected. Whether Hardening-only support should affect lifecycle status is a maintainer policy question; this document does not introduce a new status.
 
 ---
 

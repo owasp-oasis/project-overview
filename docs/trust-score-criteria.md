@@ -62,7 +62,7 @@ The `modified_reputation` is the primary display value for leaderboards and vali
 comment_score = count(OASIS-template comments posted)
 ```
 
-**Definition:** Number of times the validator has posted a complete OASIS-template comment. Each comment counts as 1 point, regardless of decision (accept/modify/reject/duplicate).
+**Definition:** Number of times the validator has posted a complete OASIS-template comment. Each comment counts as 1 point, regardless of decision (accept/modify/hardening/reject/duplicate).
 
 **Why:** Encourages participation by rewarding any substantive engagement.
 
@@ -119,6 +119,8 @@ trust_score = 10 × count(PRs voted accept AND merged upstream)
 ```
 
 **Definition:** High weight (10 points each) for PRs where the validator voted "accept" and the PR was successfully merged into the upstream project.
+
+Hardening is tracked separately and does not count as an Accept vote for this vulnerability-validation trust-score component. Hardening does not assert that the underlying finding was a vulnerability.
 
 **Why:** Validates the accuracy of the validator's assessment. Accepting a PR that merges proves the fix was good; rejecting a PR that later merges would lower confidence.
 
@@ -220,6 +222,7 @@ CREATE TABLE contributors (
   reactions_given        INTEGER DEFAULT 0,
   accepts                INTEGER DEFAULT 0,
   modifies               INTEGER DEFAULT 0,
+  hardenings             INTEGER DEFAULT 0,
   rejects                INTEGER DEFAULT 0,
   duplicates             INTEGER DEFAULT 0,
   
@@ -251,7 +254,7 @@ CREATE TABLE pr_comments (
   repo_name      TEXT NOT NULL,
   pr_number      INTEGER NOT NULL,
   login          TEXT NOT NULL,
-  decision       TEXT,  -- 'accept'|'modify'|'reject'|'duplicate'|NULL
+  decision       TEXT,  -- 'accept'|'modify'|'hardening'|'reject'|'duplicate'|NULL
   duplicate_of   INTEGER DEFAULT NULL,
   created_at     TEXT NOT NULL,  -- ISO-8601
   pr_created_at  TEXT NOT NULL   -- ISO-8601

@@ -158,6 +158,8 @@ Validators leave structured feedback on:
 - repo fit
 - confidence level
 
+These assessments inform one final human decision. During human validation of a candidate security fix, a validator may select Hardening when available evidence does not demonstrate that the existing implementation is a vulnerability, but the proposed change is a worthwhile, scoped security improvement. Hardening does not classify the finding as a confirmed vulnerability or a false positive, and automation must not assign it.
+
 Multiple validators can review the same candidate. Their reviews are not all treated equally.
 
 Validation timing should be explicitly tracked for each reviewer action:
@@ -169,11 +171,12 @@ Validation timing should be explicitly tracked for each reviewer action:
 Each validator decision should be recorded as one of:
 
 - accept
-- reject
 - modify
+- hardening
+- reject
 - duplicate
 
-The `duplicate` decision indicates that the candidate fix addresses the same vulnerability as an existing PR or upstream submission. Duplicate votes are used to identify related work and prevent redundant effort. When consensus is reached (more duplicate votes than accept/modify/reject votes), the PR is marked as a duplicate of its most-cited parent, and—if the parent is already merged upstream—the duplicate PR is automatically closed on GitHub.
+Hardening is a distinct human validation outcome; it does not count as Accept, Modify, Reject, or Duplicate. The `duplicate` decision indicates that the candidate fix addresses the same vulnerability as an existing PR or upstream submission. Duplicate votes are used to identify related work and prevent redundant effort. When consensus is reached (more duplicate votes than accept/modify/reject/hardening votes), the PR is marked as a duplicate of its most-cited parent, and—if the parent is already merged upstream—the duplicate PR is automatically closed on GitHub.
 
 These timing and outcome records support both operational metrics and reviewer credibility scoring over time.
 
@@ -225,7 +228,7 @@ Project owners decide whether a candidate is:
 
 A candidate should be adopted only when:
 
-- the issue appears real
+- the vulnerability is substantiated, or the candidate has a worthwhile scoped hardening rationale
 - the fix is technically sound
 - the patch is credible to maintainers
 - the target repository is still active and submission-worthy

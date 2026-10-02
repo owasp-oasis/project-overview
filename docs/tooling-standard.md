@@ -1,12 +1,13 @@
 # OASIS Tooling Standard
 
-**Version:** 1.3  
-**Date:** 2026-06-09  
+**Version:** 1.4
+**Date:** 2026-10-02
 **Status:** Draft
 
 ## Version History
 
 - **1.3** (2026-06-09): Added `parent_pr` field to validation_result for duplicate detection, `decision` enum, and duplicate validation guidance.
+- **1.4** (2026-10-02): Added the human-selected `hardening` decision and aligned nullable validation semantics in the JSON Schema.
 - **1.0** (2026-06-08): Initial release.
 
 ## Purpose
@@ -77,7 +78,7 @@ This standard defines the structured metadata that security tools must provide t
 
 **detection_method:** `static-analysis` | `dynamic-analysis` | `llm-analysis` | `dependency-scan` | `secrets-scan` | `code-review` | `fuzzing` | `manual` | `hybrid`
 
-**decision:** `accept` | `modify` | `reject` | `duplicate` — Structured validation decision required by OASIS for consensus tracking. The `duplicate` decision indicates that this PR addresses the same vulnerability as a related PR (see `parent_pr` in validation_result).
+**decision:** `accept` | `modify` | `hardening` | `reject` | `duplicate` — Structured human validation decision used by OASIS for consensus tracking. It is required on human vote records and must not be inferred or assigned by automation. Hardening means the available evidence does not demonstrate that the existing implementation is a vulnerability, while the proposed change is a worthwhile scoped security improvement. The `duplicate` decision indicates that this PR addresses the same vulnerability as a related PR (see `parent_pr` in validation_result).
 
 ## Object Schemas
 
@@ -131,8 +132,8 @@ This standard defines the structured metadata that security tools must provide t
 ```
 
 **Fields:**
-- `valid` (boolean): Accept/Modify = true, Reject = false, Duplicate = null (optional)
-- `decision` (string): `accept`, `modify`, `reject`, or `duplicate` — explicit decision value used by OASIS for structured tracking
+- `valid` (boolean | null): Accept/Modify = true, Reject = false, Hardening/Duplicate = null. The explicit `decision` distinguishes Hardening from Duplicate.
+- `decision` (string): `accept`, `modify`, `hardening`, `reject`, or `duplicate` — explicit decision value used by OASIS for structured tracking. Human vote records require a decision; automated validation results must not assign Hardening.
 - `evidence` (string): Human-readable summary of validation findings or reason for decision
 - `parent_pr` (number | null): For duplicate detection only — GitHub PR number of the parent/related PR. Null for non-duplicate validations.
 - `test_results` (object, optional): Test execution summary
@@ -194,7 +195,8 @@ This standard defines the structured metadata that security tools must provide t
     "validation_result": {
       "type": "object",
       "properties": {
-        "valid": { "type": "boolean" },
+        "valid": { "type": ["boolean", "null"], "description": "Null for Hardening or Duplicate; the decision distinguishes them." },
+        "decision": { "type": "string", "enum": ["accept", "modify", "hardening", "reject", "duplicate"] },
         "evidence": { "type": "string" },
         "test_results": { "type": "object" },
         "method": { "type": "string" }
@@ -347,6 +349,21 @@ Validation summary:
 | Next step | merge |
 ```
 
+**Markdown Table Input (Hardening):**
+
+```markdown
+Validation summary:
+
+| | |
+| :-- | :-- |
+| Decision | Hardening |
+| Confidence | Medium |
+| Summary | The available evidence does not demonstrate that the existing implementation is a vulnerability. The proposed safer default is a worthwhile scoped security improvement. |
+| Next step | merge |
+```
+
+Hardening is a human validation decision. Automated findings and tool output cannot assign it. The OASIS workflow must accept Hardening only from an authenticated human validator action.
+
 **Markdown Table Input (Reject):**
 
 ```markdown
@@ -372,13 +389,15 @@ Rejection summary:
 | `github_bot_login` | Validator's GitHub login | e.g., `chrisholt` |
 | `tool_version_at_run` | `"human"` | Identifies human validator |
 | `confidence` | `1.0` | High = 1.0, Medium = 0.75, Low = 0.5 |
-| `validation_result.valid` | `true` / `false` | Accept/Modify = true, Reject = false |
-| `validation_result.decision` | `"accept"` / `"modify"` / `"reject"` | From table |
+| `validation_result.valid` | `true` / `false` / `null` | Accept/Modify = true, Reject = false; Hardening/Duplicate = null |
+| `validation_result.decision` | `accept` / `modify` / `hardening` / `reject` / `duplicate` | From table; Hardening is human-selected |
 | `validation_result.evidence` | Summary or Reason field | From table |
 | `validation_result.next_step` | `"merge"` / `"revise"` etc. | Accept/Modify only |
 | `validation_result.blocking_issues` | Blocking issues field | Reject only |
 | `validation_result.to_reconsider` | To reconsider field | Reject only |
 | `validation_result.method` | `"human_review"` | Identifies human validator |
+
+For a Hardening entry, `validation_result.valid` is `null`, `validation_result.decision` is `"hardening"`, and `validation_result.evidence` contains the validator summary. The decision distinguishes Hardening from Duplicate. The schema describes output shape; the OASIS workflow must accept Hardening only from an authenticated human validator action.
 
 **Confidence Translation:**
 
@@ -422,7 +441,7 @@ Duplicate report:
 | `validation_result.evidence` | Notes field | From table |
 | `validation_result.method` | `"human_review"` | Identifies human validator |
 
-**When duplicate consensus is reached** (more duplicate votes than accept/modify/reject), OASIS:
+**When duplicate consensus is reached** (more duplicate votes than accept/modify/reject/hardening), OASIS:
 1. Sets `pull_requests.duplicate_of` to point to the most-cited parent PR (canonicalized through chain resolution)
 2. Badges the duplicate PR on the leaderboard with duplicate status
 3. Continues to award full reputation to validators who voted duplicate
@@ -441,3 +460,4 @@ Tools outputting OASIS-compliant metadata should format their findings for GitHu
 This standard follows semantic versioning:
 
 - **1.0:** Initial standard definition
+- **1.4:** Added the human-selected Hardening decision and nullable validation semantics
