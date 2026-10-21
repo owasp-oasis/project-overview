@@ -37,7 +37,7 @@ This standard defines the structured metadata that security tools must provide t
 
 ## Field Reference
 
-| Field | Detect | Fix | Validate | Description | Type | Format |
+| Field | Detect | Fix | Validate | Description | Type | Example Values |
 |-------|--------|-----|----------|-------------|------|--------|
 | `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | float | `1.2` |
 | `tool_name` | ✅ | ✅ | ✅ | Name of the tool | string | — |
