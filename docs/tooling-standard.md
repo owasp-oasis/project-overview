@@ -61,8 +61,8 @@ This standard defines the structured metadata that security tools must provide t
 | `language` | 👍 | 👍 | 👍 | Programming language | string | — |
 | `affected_file` | 👍 | 👍 | 👍 | Path to affected file | string | — |
 | `affected_function` | 👍 | 👍 | 👍 | Name of affected function | string | — |
-| `affected_line_start` | 👍 | 👍 | 👍 | Starting line number | number | — |
-| `affected_line_end` | 👍 | 👍 | 👍 | Ending line number | number | — |
+| `affected_line_start` | 👍 | 👍 | 👍 | Starting line number | integer | — |
+| `affected_line_end` | 👍 | 👍 | 👍 | Ending line number | integer | — |
 | `false_positive_likelihood` | 👍 | 👍 | 👍 | Estimated false positive likelihood | string | `low`, `medium`, `high` |
 | `remediation_effort` | 👍 | 👍 | 👍 | Estimated remediation effort | string | `low`, `medium`, `high` |
 | `references` | ⚪ | ⚪ | ⚪ | URLs to docs, advisories, issues | array | — |
