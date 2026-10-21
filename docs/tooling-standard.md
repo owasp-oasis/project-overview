@@ -39,7 +39,7 @@ This standard defines the structured metadata that security tools must provide t
 
 | Field | Detect | Fix | Validate | Description | Type | Format |
 |-------|--------|-----|----------|-------------|------|--------|
-| `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | string | `1.2` |
+| `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | float | `1.2` |
 | `tool_name` | ✅ | ✅ | ✅ | Name of the tool | string | — |
 | `role` | ✅ | ✅ | ✅ | Role in OASIS pipeline | string | `detect`, `fix`, `validate` |
 | `timestamp` | ✅ | ✅ | ✅ | Tool execution completion time | ISO 8601 | `2026-06-05T14:30:00Z` |
