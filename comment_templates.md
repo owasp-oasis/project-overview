@@ -15,7 +15,7 @@ Stopped working on this PR.
 | | |
 | :-- | :-- |
 | Reason | why work stopped |
-| Current status | what is done / not done>|
+| Current status | what is done / not done |
 ```
 
 ## Validation Review Summary
@@ -27,7 +27,7 @@ Validation summary:
 | :-- | :-- |
 | Decision | Accept / Modify |
 | Confidence | Low / Medium / High |
-| Summary | 1-2 sentances |
+| Summary | 1-2 sentences |
 | Next step | merge / revise / re-review |
 ```
 
@@ -39,7 +39,7 @@ Rejection summary:
 | | |
 | :-- | :-- |
 | Decision | Reject |
-| Reason | 1-2 sentances |
+| Reason | 1-2 sentences |
 | Blocking issues | short list |
 | To reconsider | what must change |
 ```
