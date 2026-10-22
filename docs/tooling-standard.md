@@ -58,7 +58,7 @@ This standard defines the structured metadata that security tools must provide t
 | `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see Fix Patch schema |
 | `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see Validation Result schema |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
-| `language` | 👍 | 👍 | 👍 | Programming language | string | — |
+| `language` | 👍 | 👍 | 👍 | Programming language | string | `python` |
 | `affected_file` | 👍 | 👍 | 👍 | Path to affected file | string | — |
 | `affected_function` | 👍 | 👍 | 👍 | Name of affected function | string | — |
 | `affected_line_start` | 👍 | 👍 | 👍 | Starting line number | integer | — |
