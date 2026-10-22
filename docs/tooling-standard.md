@@ -56,7 +56,7 @@ This standard defines the structured metadata that security tools must provide t
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
 | `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low: < 0.5, Medium: >= 0.5 and < 0.75, High: >= 0.75 and < 1.0) | number | 0.0–1.0 |
 | `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#fix-patch) |
-| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see Validation Result schema |
+| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see [Validation Result schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#validation-result) |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
 | `language` | 👍 | 👍 | 👍 | Programming language | string | `python` |
 | `affected_file` | 👍 | 👍 | 👍 | Path to affected file | string | — |
