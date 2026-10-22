@@ -52,7 +52,7 @@ This standard defines the structured metadata that security tools must provide t
 | `capec` | 👍 | 👍 | ⚪ | CAPEC attack pattern identifier(s) | string \| array | `CAPEC-233` |
 | `vulnerability_description` | ✅ | ✅ | ⚪ | Human-readable vulnerability description | string | — |
 | `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see Category enum |
-| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in [Detect Role Example]()|
+| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in [Detect Role Example](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#detect-role-example)|
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
 | `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low: < 0.5, Medium: >= 0.5 and < 0.75, High: >= 0.75 and < 1.0) | number | 0.0–1.0 |
 | `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#fix-patch) |
