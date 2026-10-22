@@ -332,7 +332,7 @@ This standard defines the structured metadata that security tools must provide t
 
 ### Validate Role Example (Human Validator)
 
-Human validators use the OASIS comment template format (see `comment_templates.md`). The table is parsed and translated to structured fields:
+Human validators use the OASIS comment template format (see [`comment_templates.md`](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/comment_templates.md)). The table is parsed and translated to structured fields:
 
 **Markdown Table Input (Accept/Modify):**
 
