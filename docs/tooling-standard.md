@@ -48,7 +48,7 @@ This standard defines the structured metadata that security tools must provide t
 | `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see [Target schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#target) |
 | `cwe` | ✅ | ✅ | ⚪ | CWE identifier(s) detected/fixed | string \| array | `CWE-79`, `["CWE-79", "CWE-89"]` |
 | `cve` | 👍 | 👍 | ⚪ | CVE identifier(s) if known | string \| array | `CVE-2024-12345` |
-| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see CVSS schema |
+| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see [CVSS schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#cvss) |
 | `capec` | 👍 | 👍 | ⚪ | CAPEC attack pattern identifier(s) | string \| array | `CAPEC-233` |
 | `vulnerability_description` | ✅ | ✅ | ⚪ | Human-readable vulnerability description | string | — |
 | `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see Category enum |
