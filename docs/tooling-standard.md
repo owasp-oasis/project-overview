@@ -55,7 +55,7 @@ This standard defines the structured metadata that security tools must provide t
 | `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see Method enum |
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
 | `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low: < 0.5, Medium: >= 0.5 and < 0.75, High: >= 0.75 and < 1.0) | number | 0.0–1.0 |
-| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see Fix Patch schema |
+| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema]() |
 | `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see Validation Result schema |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
 | `language` | 👍 | 👍 | 👍 | Programming language | string | `python` |
