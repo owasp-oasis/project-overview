@@ -66,7 +66,7 @@ This standard defines the structured metadata that security tools must provide t
 | `false_positive_likelihood` | 👍 | 👍 | 👍 | Estimated false positive likelihood | string | `low`, `medium`, `high` |
 | `remediation_effort` | 👍 | 👍 | 👍 | Estimated remediation effort | string | `low`, `medium`, `high` |
 | `references` | ⚪ | ⚪ | ⚪ | URLs to docs, advisories, issues | array | — |
-| `reproduction_steps` | ⚪ | ⚪ | ⚪ | Steps to reproduce | string | — |
+| `reproduction_steps` | ⚪ | ⚪ | ⚪ | Steps to reproduce | string | ordered list and/or script |
 | `test_evidence` | ⚪ | ⚪ | ⚪ | Test results | object | — |
 | `tool_configuration` | ⚪ | ⚪ | ⚪ | Tool configuration used | object | — |
 | `tags` | ⚪ | ⚪ | ⚪ | Custom categorization tags | array | — |
