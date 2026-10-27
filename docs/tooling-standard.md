@@ -43,7 +43,7 @@ This standard defines the structured metadata that security tools must provide t
 | `tool_name` | ✅ | ✅ | ✅ | Name of the tool | string | — |
 | `role` | ✅ | ✅ | ✅ | Role in OASIS pipeline | string | `detect`, `fix`, `validate` |
 | `timestamp` | ✅ | ✅ | ✅ | Tool execution completion time | ISO 8601 | `2026-06-05T14:30:00Z` |
-| `github_bot_login` | ✅ | ✅ | ✅ | GitHub bot/author login for leaderboard attribution | string | `dryrun-security[bot]` |
+| `github_bot_login` | ✅ | ✅ | ✅ | GitHub bot/author login for leaderboard attribution | string | `dryrun-security[bot]`, `appsecai-app[bot]` |
 | `tool_version_at_run` | ✅ | ✅ | ✅ | Tool version at execution time | string | `1.155.0` |
 | `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see [Target schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#target) |
 | `cwe` | ✅ | ✅ | ⚪ | CWE identifier(s) detected/fixed | string \| array | `CWE-79`, `["CWE-79", "CWE-89"]` |
