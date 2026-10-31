@@ -37,36 +37,36 @@ This standard defines the structured metadata that security tools must provide t
 
 ## Field Reference
 
-| Field | Detect | Fix | Validate | Description | Type | Format |
+| Field | Detect | Fix | Validate | Description | Type | Format / Example Values |
 |-------|--------|-----|----------|-------------|------|--------|
 | `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | string | `1.2` |
 | `tool_name` | ✅ | ✅ | ✅ | Name of the tool | string | — |
 | `role` | ✅ | ✅ | ✅ | Role in OASIS pipeline | string | `detect`, `fix`, `validate` |
 | `timestamp` | ✅ | ✅ | ✅ | Tool execution completion time | ISO 8601 | `2026-06-05T14:30:00Z` |
-| `github_bot_login` | ✅ | ✅ | ✅ | GitHub bot/author login for leaderboard attribution | string | `dryrun-security[bot]` |
+| `github_bot_login` | ✅ | ✅ | ✅ | GitHub bot/author login for leaderboard attribution | string | `dryrun-security[bot]`, `appsecai-app[bot]` |
 | `tool_version_at_run` | ✅ | ✅ | ✅ | Tool version at execution time | string | `1.155.0` |
-| `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see Target schema |
+| `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see [Target schema](#target) |
 | `cwe` | ✅ | ✅ | ⚪ | CWE identifier(s) detected/fixed | string \| array | `CWE-79`, `["CWE-79", "CWE-89"]` |
 | `cve` | 👍 | 👍 | ⚪ | CVE identifier(s) if known | string \| array | `CVE-2024-12345` |
-| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see CVSS schema |
+| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see [CVSS schema](#cvss) |
 | `capec` | 👍 | 👍 | ⚪ | CAPEC attack pattern identifier(s) | string \| array | `CAPEC-233` |
 | `vulnerability_description` | ✅ | ✅ | ⚪ | Human-readable vulnerability description | string | — |
-| `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see Category enum |
-| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see Method enum |
+| `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see `vulnerability_category` enum in the  [JSON schema](#json-schema) |
+| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in the [JSON schema](#json-schema) |
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
-| `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low=0.5, Medium=0.75, High=1.0) | number | 0.0–1.0 |
-| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see Fix Patch schema |
-| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see Validation Result schema |
+| `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low = 0.5, Medium = 0.75, High = 1.0) | number | 0.0–1.0 |
+| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](#fix-patch) |
+| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see [Validation Result schema](#validation-result) |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
-| `language` | 👍 | 👍 | 👍 | Programming language | string | — |
+| `language` | 👍 | 👍 | 👍 | Programming language | string | `python` |
 | `affected_file` | 👍 | 👍 | 👍 | Path to affected file | string | — |
 | `affected_function` | 👍 | 👍 | 👍 | Name of affected function | string | — |
-| `affected_line_start` | 👍 | 👍 | 👍 | Starting line number | number | — |
-| `affected_line_end` | 👍 | 👍 | 👍 | Ending line number | number | — |
+| `affected_line_start` | 👍 | 👍 | 👍 | Starting line number | integer | — |
+| `affected_line_end` | 👍 | 👍 | 👍 | Ending line number | integer | — |
 | `false_positive_likelihood` | 👍 | 👍 | 👍 | Estimated false positive likelihood | string | `low`, `medium`, `high` |
 | `remediation_effort` | 👍 | 👍 | 👍 | Estimated remediation effort | string | `low`, `medium`, `high` |
 | `references` | ⚪ | ⚪ | ⚪ | URLs to docs, advisories, issues | array | — |
-| `reproduction_steps` | ⚪ | ⚪ | ⚪ | Steps to reproduce | string | — |
+| `reproduction_steps` | ⚪ | ⚪ | ⚪ | Steps to reproduce | string | ordered list and/or script |
 | `test_evidence` | ⚪ | ⚪ | ⚪ | Test results | object | — |
 | `tool_configuration` | ⚪ | ⚪ | ⚪ | Tool configuration used | object | — |
 | `tags` | ⚪ | ⚪ | ⚪ | Custom categorization tags | array | — |
@@ -332,7 +332,7 @@ This standard defines the structured metadata that security tools must provide t
 
 ### Validate Role Example (Human Validator)
 
-Human validators use the OASIS comment template format (see `comment_templates.md`). The table is parsed and translated to structured fields:
+Human validators use the OASIS comment template format (see [`comment_templates.md`](../comment_templates.md)). The table is parsed and translated to structured fields:
 
 **Markdown Table Input (Accept/Modify):**
 
@@ -371,7 +371,7 @@ Rejection summary:
 | `target` | PR context | From PR metadata |
 | `github_bot_login` | Validator's GitHub login | e.g., `chrisholt` |
 | `tool_version_at_run` | `"human"` | Identifies human validator |
-| `confidence` | `1.0` | High = 1.0, Medium = 0.75, Low = 0.5 |
+| `confidence` | `1.0` | Low = `0.5`, Medium = `0.75`, High = `1.0` |
 | `validation_result.valid` | `true` / `false` | Accept/Modify = true, Reject = false |
 | `validation_result.decision` | `"accept"` / `"modify"` / `"reject"` | From table |
 | `validation_result.evidence` | Summary or Reason field | From table |
