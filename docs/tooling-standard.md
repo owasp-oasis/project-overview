@@ -45,18 +45,18 @@ This standard defines the structured metadata that security tools must provide t
 | `timestamp` | ✅ | ✅ | ✅ | Tool execution completion time | ISO 8601 | `2026-06-05T14:30:00Z` |
 | `github_bot_login` | ✅ | ✅ | ✅ | GitHub bot/author login for leaderboard attribution | string | `dryrun-security[bot]`, `appsecai-app[bot]` |
 | `tool_version_at_run` | ✅ | ✅ | ✅ | Tool version at execution time | string | `1.155.0` |
-| `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see [Target schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#target) |
+| `target` | ✅ | ✅ | ✅ | Target repo, commit, branch, language | object | see [Target schema](#target) |
 | `cwe` | ✅ | ✅ | ⚪ | CWE identifier(s) detected/fixed | string \| array | `CWE-79`, `["CWE-79", "CWE-89"]` |
 | `cve` | 👍 | 👍 | ⚪ | CVE identifier(s) if known | string \| array | `CVE-2024-12345` |
-| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see [CVSS schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#cvss) |
+| `cvss` | 👍 | 👍 | ⚪ | CVSS score and vector | object | see [CVSS schema](#cvss) |
 | `capec` | 👍 | 👍 | ⚪ | CAPEC attack pattern identifier(s) | string \| array | `CAPEC-233` |
 | `vulnerability_description` | ✅ | ✅ | ⚪ | Human-readable vulnerability description | string | — |
-| `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see `vulnerability_category` enum in the  [JSON schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#json-schema) |
-| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in the [JSON schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#json-schema) |
+| `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see `vulnerability_category` enum in the  [JSON schema](#json-schema) |
+| `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in the [JSON schema](#json-schema) |
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
 | `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low = 0.5, Medium = 0.75, High = 1.0) | number | 0.0–1.0 |
-| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#fix-patch) |
-| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see [Validation Result schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#validation-result) |
+| `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](#fix-patch) |
+| `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see [Validation Result schema](#validation-result) |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
 | `language` | 👍 | 👍 | 👍 | Programming language | string | `python` |
 | `affected_file` | 👍 | 👍 | 👍 | Path to affected file | string | — |
@@ -332,7 +332,7 @@ This standard defines the structured metadata that security tools must provide t
 
 ### Validate Role Example (Human Validator)
 
-Human validators use the OASIS comment template format (see [`comment_templates.md`](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/comment_templates.md)). The table is parsed and translated to structured fields:
+Human validators use the OASIS comment template format (see [`comment_templates.md`](../comment_templates.md)). The table is parsed and translated to structured fields:
 
 **Markdown Table Input (Accept/Modify):**
 
