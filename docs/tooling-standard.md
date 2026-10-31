@@ -39,7 +39,7 @@ This standard defines the structured metadata that security tools must provide t
 
 | Field | Detect | Fix | Validate | Description | Type | Format / Example Values |
 |-------|--------|-----|----------|-------------|------|--------|
-| `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | float | `1.2` |
+| `version` | ✅ | ✅ | ✅ | Schema version this output conforms to | string | `1.2` |
 | `tool_name` | ✅ | ✅ | ✅ | Name of the tool | string | — |
 | `role` | ✅ | ✅ | ✅ | Role in OASIS pipeline | string | `detect`, `fix`, `validate` |
 | `timestamp` | ✅ | ✅ | ✅ | Tool execution completion time | ISO 8601 | `2026-06-05T14:30:00Z` |
@@ -54,7 +54,7 @@ This standard defines the structured metadata that security tools must provide t
 | `vulnerability_category` | 👍 | 👍 | ⚪ | Broad classification for filtering/aggregation | string | see `vulnerability_category` enum in the  [JSON schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#json-schema) |
 | `detection_method` | 👍 | 👍 | ⚪ | How vulnerability was identified | string | see `detection_method` enum in the [JSON schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#json-schema) |
 | `affected_resource` | ✅ | ✅ | ⚪ | File path and line number | string | `src/auth.js:42` |
-| `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low: < 0.5, Medium: >= 0.5 and < 0.75, High: >= 0.75 and < 1.0) | number | 0.0–1.0 |
+| `confidence` | ✅ | ✅ | ✅ | Tool confidence score (human: Low = 0.5, Medium = 0.75, High = 1.0) | number | 0.0–1.0 |
 | `fix_patch` | ➖ | ✅ | ➖ | Unified diff or patch object | object | see [Fix Patch schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#fix-patch) |
 | `validation_result` | ➖ | ➖ | ✅ | Validation outcome with evidence | object | see [Validation Result schema](https://github.com/zbraiterman/project-overview/blob/docs/tooling-standard/docs/tooling-standard.md#validation-result) |
 | `severity` | 👍 | 👍 | 👍 | Severity classification | string | `critical`, `high`, `medium`, `low`, `info` |
