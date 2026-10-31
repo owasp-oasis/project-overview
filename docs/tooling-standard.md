@@ -371,7 +371,7 @@ Rejection summary:
 | `target` | PR context | From PR metadata |
 | `github_bot_login` | Validator's GitHub login | e.g., `chrisholt` |
 | `tool_version_at_run` | `"human"` | Identifies human validator |
-| `confidence` | `1.0` | High = >= `0.75 and < 1.0`, Medium `>= 0.5 and < 0.75`, Low `< 0.5` |
+| `confidence` | `1.0` | Low = `0.5`, Medium = `0.75`, High = `1.0` |
 | `validation_result.valid` | `true` / `false` | Accept/Modify = true, Reject = false |
 | `validation_result.decision` | `"accept"` / `"modify"` / `"reject"` | From table |
 | `validation_result.evidence` | Summary or Reason field | From table |
